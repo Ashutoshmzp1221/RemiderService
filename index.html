@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FlyTex Boarding Pass</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background-color: #e9eff5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .boarding-pass {
+      max-width: 700px;
+      margin: auto;
+      background-color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      border: 2px dashed #0077ff;
+    }
+
+    .header {
+      background: #0077ff;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .main {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .info-group {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .info {
+      flex: 0 0 48%;
+      margin-bottom: 12px;
+    }
+
+    .info label {
+      font-size: 13px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+    }
+
+    .info p {
+      margin: 4px 0 0;
+      font-size: 16px;
+      color: #222;
+      font-weight: 500;
+    }
+
+    .route {
+      text-align: center;
+      background-color: #f2f6fc;
+      border-radius: 8px;
+      padding: 16px;
+      border: 1px solid #dce6f5;
+    }
+
+    .route h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: #0077ff;
+    }
+
+    .route span {
+      font-size: 24px;
+      margin: 0 10px;
+    }
+
+    .footer {
+      background-color: #f4f6f9;
+      text-align: center;
+      padding: 16px;
+      font-size: 13px;
+      color: #777;
+      border-top: 1px solid #ccc;
+    }
+
+    @media screen and (max-width: 600px) {
+      .info {
+        flex: 0 0 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="boarding-pass">
+    <div class="header">
+      <h1>🛫 FlyTex Boarding Pass</h1>
+      <p>Your flight is confirmed</p>
+    </div>
+
+    <div class="main">
+      <div class="route">
+        <h2>{{sourceAirport}} <span>→</span> {{destinationAirport}}</h2>
+      </div>
+
+      <div class="info-group">
+        <div class="info">
+          <label>Passenger</label>
+          <p>{{passengerName}}</p>
+        </div>
+        <div class="info">
+          <label>Booking ID</label>
+          <p>{{bookingId}}</p>
+        </div>
+        <div class="info">
+          <label>Flight Number</label>
+          <p>{{flightNumber}}</p>
+        </div>
+        <div class="info">
+          <label>Class</label>
+          <p>{{travelClass}}</p>
+        </div>
+        <div class="info">
+          <label>Flight Date</label>
+          <p>{{flightDate}}</p>
+        </div>
+        <div class="info">
+          <label>Departure</label>
+          <p>{{departureDate}}</p>
+        </div>
+        <div class="info">
+          <label>Arrival</label>
+          <p>{{arrivalDate}}</p>
+        </div>
+        <div class="info">
+          <label>Duration</label>
+          <p>{{duration}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      &copy; {{year}} FlyTex Airlines — This is an automated email, please do not reply.
+    </div>
+  </div>
+</body>
+</html>

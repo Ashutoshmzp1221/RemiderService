@@ -1,15 +1,24 @@
 const sender = require('../config/emailConfig');
 const TicketRepository = require('../repository/ticket-repository');
+const fs = require('fs');
+const path = require('path');
+const { loadHtmlTemplate } = require('../utils/loadingTemplete')
+const { EMAIL_ID } = require('../config/serverConfig')
 
 const repo = new TicketRepository();
 
-const sendBasicEmail = async (mailFrom, mailTo, mailSubject, mailBody) => {
+const sendBasicEmail = async (mailTo, templateData) => {
     try {
+        console.log('this is the templete' , templateData);
+        const filePath = path.join(__dirname, '../templete/ticketCreated.html');
+        const htmlBody = loadHtmlTemplate(filePath, {
+            ...templateData
+        })
         const response = await sender.sendMail({
-            from: mailFrom,
+            from: EMAIL_ID,
             to: mailTo,
-            subject: mailSubject,
-            text: mailBody
+            subject: 'Booking Confirmation',
+            html: htmlBody
         });
         console.log(response);
     } catch (error) {
@@ -38,7 +47,7 @@ const updateTicket = async (ticketId, data) => {
 
 const createNotification = async (data) => {
     try {
-        console.log(data);
+        // console.log(data);
         const response = await repo.create(data);
         return response;
     } catch (error) {
@@ -49,12 +58,11 @@ const createNotification = async (data) => {
 const subscribeEvents = async (payload) => {
     let service = payload.service;
     let data = payload.data;
+    let templateData = payload.templateData;
     switch(service) {
         case 'CREATE_TICKET':
             await createNotification(data);
-            break;
-        case 'SEND_BASIC_MAIL':
-            await sendBasicEmail(data);
+            await sendBasicEmail(data.recepientEmail, templateData);
             break;
         default: 
             console.log('No valid event received');
